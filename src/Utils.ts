@@ -2,7 +2,7 @@
 
 export function assert (cond: boolean) : asserts cond {
    if (!cond) {
-      throw new Error("Asserion failed."); }}
+      throw new Error("Assertion failed."); }}
 
 // Formats a template variable value.
 // `undefined` and `null` are converted to an empty string.
