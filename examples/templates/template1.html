@@ -1,0 +1,39 @@
+<html>
+<body>
+
+<h1>Example 1 Template</h2>
+
+<p>Created: ${createdTimestamp}</p>
+
+<table border="1" cellspacing="0" cellpadding="3">
+ <!-- $beginBlock row -->
+  <tr>
+   <!-- $beginBlock cell -->
+    <td>${cellValue}</td>
+   <!-- $endBlock cell -->
+  </tr>
+ <!-- $endBlock row -->
+</table>
+
+<h2>Conditional tests</h2>
+
+<pre>
+<!-- $if a == 1 -->
+   a is 1
+<!-- $elseIf a == 2 -->
+   a is 2
+<!-- $else -->
+   a is not 1 or 2
+<!-- $endIf -->
+
+<!-- $if b -->
+   b is true
+<!-- $else -->
+   b is false
+<!-- $endIf -->
+</pre>
+
+<!-- $include subTemplate1.html -->
+
+</body>
+</html>
