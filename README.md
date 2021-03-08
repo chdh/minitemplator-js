@@ -1,6 +1,6 @@
 # MiniTemplator - JavaScript Version
 
-MiniTemplator is a compact template engine primarily used for generating HTML output.
+MiniTemplator is a compact, optimized template engine primarily used for generating HTML output.
 
 ## Template syntax
 

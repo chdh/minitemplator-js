@@ -1,7 +1,7 @@
 {
    "name": "minitemplator",
    "version": "1.0.0",
-   "description": "A compact template engine for HTML.",
+   "description": "A compact, optimized template engine for HTML.",
    "type": "module",
    "types": "Index.d.ts",
    "main": "Index.js",
