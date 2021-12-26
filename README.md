@@ -31,8 +31,8 @@ Include a subtemplate:
 ## Principles
 
 - Blocks can be nested.
-- Conditions are JavaScript expressions that use condition variables.
 - Subtemplates can include other subtemplates.
+- Conditions are JavaScript expressions that use condition variables.
 
 ### Phases
 
@@ -47,7 +47,7 @@ A parsed template can be cached in memory for later re-use.
 #### Phase 2: Output document buildup
 
 In the second phase, template variables are set and blocks are added.
-When the document buildup is complete, evenrything is merged into a HTML string, which is the output of the template engine.
+When the document buildup is complete, everything is merged into a HTML string, which is the output of the template engine.
 
 ### Variables
 
