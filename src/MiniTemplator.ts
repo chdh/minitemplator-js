@@ -1,5 +1,5 @@
-import {ParsedTemplate} from "./MiniTemplatorParser";
-import {assert, formatVariableValue, escapeHtml} from "./Utils";
+import {ParsedTemplate} from "./MiniTemplatorParser.js";
+import {assert, formatVariableValue, escapeHtml} from "./Utils.js";
 
 // Thrown when `MiniTemplator.setVariable()` is called with a `variableName` that is not used within the template.
 export class VariableNotDefinedError extends Error {

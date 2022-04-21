@@ -1,4 +1,4 @@
-import {assert} from "./Utils";
+import {assert} from "./Utils.js";
 import * as Fs from "fs";
 
 const maxNestingLevel                  = 30;                         // maximum number of block nestings

@@ -1,6 +1,6 @@
 {
    "name": "minitemplator",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "description": "A compact, optimized template engine for HTML.",
    "type": "module",
    "types": "Index.d.ts",
@@ -28,5 +28,8 @@
    },
    "devDependencies": {
       "@types/node": "^14.14.16"
+   },
+   "dependencies": {
+      "async-named-mutex": "^1.0.1"
    }
 }

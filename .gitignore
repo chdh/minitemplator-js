@@ -6,4 +6,4 @@ package-lock.json
 tempBuild
 test
 todo.txt
-tsling.json
+tslint.json

@@ -1,5 +1,6 @@
-import {ParsedTemplate, ParserParms, parseTemplate} from "./MiniTemplatorParser";
-import {MiniTemplator} from "./MiniTemplator";
+import {ParsedTemplate, ParserParms, parseTemplate} from "./MiniTemplatorParser.js";
+import {MiniTemplator} from "./MiniTemplator.js";
+import {MutexRealm} from "async-named-mutex";
 import * as Path from "path";
 import * as Fs from "fs";
 
@@ -17,10 +18,12 @@ export class MiniTemplatorCache {
 
    private cache:                      Map<string,ParsedTemplate>;   // parsed templates
    private cParms:                     MiniTemplatorCacheParms;
+   private mutexRealm:                 MutexRealm<string>;
 
    public constructor (cParms: Partial<MiniTemplatorCacheParms>) {
       this.cParms = this.completeCacheParms(cParms);
-      this.cache = new Map(); }
+      this.cache = new Map();
+      this.mutexRealm = new MutexRealm<string>(); }
 
    private completeCacheParms (cParms: Partial<MiniTemplatorCacheParms>) : MiniTemplatorCacheParms {
       return {
@@ -30,22 +33,35 @@ export class MiniTemplatorCache {
    /**
    * Returns a MiniTemplator object.
    */
-   public async get (templateName: string, conditionVars?: Map<string,any>) {
+   public async get (templateName: string, conditionVars?: Map<string,any>) : Promise<MiniTemplator> {
+      const template = await this.loadTemplate(templateName, conditionVars);
+      return new MiniTemplator(template); }
+
+   private async loadTemplate (templateName: string, conditionVars?: Map<string,any>) : Promise<ParsedTemplate> {
       let cacheKey: string;
       if (conditionVars) {
          cacheKey = templateName + "|" + genConditionVarsCacheKey(conditionVars); }
        else {
          cacheKey = templateName; }
-      let template = this.cache.get(cacheKey);
-      if (!template) {
+      let template = this.cache.get(cacheKey);                       // speed opt: first try without lock
+      if (template) {
+         return template; }
+      const mutex = this.mutexRealm.createMutex(cacheKey);
+      try {
+         await mutex.acquire();
+         template = this.cache.get(cacheKey);
+         if (template) {
+            return template; }
          const pParms: Partial<ParserParms> = {
             mainTemplateName: templateName,
             conditionVars,
             shortFormEnabled: this.cParms.shortFormEnabled,
             loadTemplateFile: this.loadTemplateFile};
          template = await parseTemplate(pParms);
-         this.cache.set(cacheKey, template); }
-      return new MiniTemplator(template); }
+         this.cache.set(cacheKey, template);
+         return template; }
+       finally {
+         mutex.release(); }}
 
    /**
    * Clears the cache.

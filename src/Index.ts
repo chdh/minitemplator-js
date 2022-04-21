@@ -1,9 +1,9 @@
-export {ParserParms, parseTemplate, ParsedTemplate} from "./MiniTemplatorParser";
-export {MiniTemplator} from "./MiniTemplator";
-export {MiniTemplatorCacheParms, MiniTemplatorCache} from "./MiniTemplatorCache";
+export {ParserParms, parseTemplate, ParsedTemplate} from "./MiniTemplatorParser.js";
+export {MiniTemplator} from "./MiniTemplator.js";
+export {MiniTemplatorCacheParms, MiniTemplatorCache} from "./MiniTemplatorCache.js";
 
-import {ParserParms, parseTemplate} from "./MiniTemplatorParser";
-import {MiniTemplator} from "./MiniTemplator";
+import {ParserParms, parseTemplate} from "./MiniTemplatorParser.js";
+import {MiniTemplator} from "./MiniTemplator.js";
 
 export async function createMiniTemplator (pParms: Partial<ParserParms>) : Promise<MiniTemplator> {
    const template = await parseTemplate(pParms);
